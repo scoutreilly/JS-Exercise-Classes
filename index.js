@@ -42,7 +42,25 @@ class Airplane {
   */
   
  class Person {
-    
+    constructor(name, age) {
+      this.name = name;
+      this.age = age;
+      this.stomach = [];
+    }
+
+    eat(food) {
+      if (this.stomach.length < 10) {
+        this.stomach.push(food);
+      }
+    }
+
+    poop() {
+      this.stomach = [];
+    }
+
+    toString() {
+      return `${this.name}, ${this.age}`
+    }
   }
   
   /*
@@ -60,7 +78,30 @@ class Airplane {
   */
   
  class Car {
-    
+    constructor(model, milesPerGallon) {
+      this.model = model;
+      this.milesPerGallon = milesPerGallon;
+      this.tank = 0;
+      this.odometer = 0;
+    }
+
+    fill(gallons) {
+      let tankFilled = gallons += this.tank;
+      this.tank = tankFilled;
+      return tankFilled
+    }
+
+    drive(distance) {
+      let milesTillEmpty = this.tank * this.milesPerGallon;
+      if (milesTillEmpty >= distance) {
+        this.odometer = this.odometer + distance;
+        this.tank = this.tank - (distance / this.milesPerGallon);
+      } else {
+        this.odometer = this.odometer + milesTillEmpty;
+        this.tank = 0;
+        return ` I ran out of fuel at ${this.odometer} miles!`
+      }
+    }
   }
   
   /*
@@ -76,7 +117,15 @@ class Airplane {
           + {name} and {location} of course come from the instance's own properties.
   */
  class Lambdasian {
-    
+    constructor(deets) {
+      this.name = deets.name;
+      this.age = deets.age;
+      this.location = deets.location;
+    }
+
+    speak() {
+      return `Hello my name is ${this.name}, I am from ${this.location}`
+    }
   }
   
   /*
@@ -93,9 +142,26 @@ class Airplane {
           + `demo` receives a `subject` string as an argument and returns the phrase 'Today we are learning about {subject}' where subject is the param passed in.
           + `grade` receives a `student` object and a `subject` string as arguments and returns '{student.name} receives a perfect score on {subject}'
   */
- class Instructor {
+ class Instructor extends Lambdasian {
+   constructor(bigDeets) {
+    super(bigDeets);
+    this.specialty = bigDeets.specialty;
+    this.favLanguage = bigDeets.favLanguage;
+    this.catchPhrase = bigDeets.catchPhrase;
+   }
 
+   demo(subject) {
+     return `Today we are learning about ${subject}`
+   }
+
+   grade (student, subject) {
+     return `${student.name} receives a perfect score on ${subject}`
+   }
  }
+
+//  this.specialty = 'React';
+//  this.favLanguage = 'Javascript';
+//  this.catchPhrase = 'Howdy students, lets goooo';
   /*
     TASK 5
       - Write a Student class extending Lambdasian.
@@ -111,10 +177,43 @@ class Airplane {
           + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
           + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
   */
- class Student {
-     
+ class Student extends Lambdasian {
+   constructor(studentDeets) {
+     super(studentDeets);
+     this.previousBackground = studentDeets.previousBackground;
+     this.className = studentDeets.className;
+     this.favSubjects = studentDeets.favSubjects;
+   }
+
+   listSubjects() {
+     return this.favSubjects
+   }
+
+   PRAssignment(subject) {
+     return `${this.name} has submitted a PR for ${subject}`
+   }
+   
+   sprintChallenge(subject) {
+     return `${this.name} has begun sprint challenge on ${subject}`
+   }
  }
+
+//  const student = new Student ({
+//    name: 'scout', 
+//    age: '22', 
+//    location: 'st. geezy', 
+//    previousBackground: 'Co-Manager', 
+//    className: 'webpt29', 
+//    favSubjects: ['Javascript', 'Math']
+//  });
   
+//  console.log(student);
+//  console.log(student.listSubjects());
+//  console.log(student.PRAssignment('react'));
+//  console.log(student.sprintChallenge('react'));
+
+//I've tested my sprintChallenge and my PRAssignment and they both are running correctly. I'm not sure why I can't get my tests to pass.
+
   /*
     TASK 6
       - Write a ProjectManager class extending Instructor.
@@ -128,8 +227,20 @@ class Airplane {
           + `standUp` a method that takes in a slack channel and returns `{name} announces to {channel}, @channel standy times!`
           + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
   */
- class ProjectManager {
-     
+ class ProjectManager extends Instructor {
+   constructor(managerDeets) {
+     super(managerDeets);
+     this.gradClassName = managerDeets.gradClassName;
+     this.favInstructor = managerDeets.favInstructor;
+   }
+
+   standUp(channel) {
+     return `${this.name} announces to ${channel}, @channel standy times!`
+   }
+
+   debugsCode(studentObject, subject) {
+     return `${this.name} debugs ${studentObject.name}'s code on ${subject}`
+   }
  }
   /*
     STRETCH PROBLEM (no tests!)
