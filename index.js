@@ -155,7 +155,7 @@ class Airplane {
    }
 
    grade (student, subject) {
-     return `${student} receives a perfect score on ${subject}`
+     return `${student.name} receives a perfect score on ${subject}`
    }
  }
 
@@ -177,10 +177,43 @@ class Airplane {
           + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
           + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
   */
- class Student {
-     
+ class Student extends Lambdasian {
+   constructor(studentDeets) {
+     super(studentDeets);
+     this.previousBackground = studentDeets.previousBackground;
+     this.className = studentDeets.className;
+     this.favSubjects = studentDeets.favSubjects;
+   }
+
+   listSubjects() {
+     return this.favSubjects
+   }
+
+   PRAssignment(subject) {
+     return `${this.name} has submitted a PR for ${subject}`
+   }
+   
+   sprintChallenge(subject) {
+     return `${this.name} has begun sprint challenge on ${subject}`
+   }
  }
+
+//  const student = new Student ({
+//    name: 'scout', 
+//    age: '22', 
+//    location: 'st. geezy', 
+//    previousBackground: 'Co-Manager', 
+//    className: 'webpt29', 
+//    favSubjects: ['Javascript', 'Math']
+//  });
   
+//  console.log(student);
+//  console.log(student.listSubjects());
+//  console.log(student.PRAssignment('react'));
+//  console.log(student.sprintChallenge('react'));
+
+//I've tested my sprintChallenge and my PRAssignment and they both are running correctly. I'm not sure why I can't get my tests to pass.
+
   /*
     TASK 6
       - Write a ProjectManager class extending Instructor.
@@ -194,8 +227,20 @@ class Airplane {
           + `standUp` a method that takes in a slack channel and returns `{name} announces to {channel}, @channel standy times!`
           + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
   */
- class ProjectManager {
-     
+ class ProjectManager extends Instructor {
+   constructor(managerDeets) {
+     super(managerDeets);
+     this.gradClassName = managerDeets.gradClassName;
+     this.favInstructor = managerDeets.favInstructor;
+   }
+
+   standUp(channel) {
+     return `${this.name} announces to ${channel}, @channel standy times!`
+   }
+
+   debugsCode(studentObject, subject) {
+     return `${this.name} debugs ${studentObject.name}'s code on ${subject}`
+   }
  }
   /*
     STRETCH PROBLEM (no tests!)
